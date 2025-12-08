@@ -1,1 +1,40 @@
 @import "tailwindcss";
+
+@theme {
+  /* 1. Definisi Font */
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+  /* 2. Definisi Warna (Sesuai Desain Figma) */
+  /* Format v4 otomatis membuat utility: bg-brand-dark, text-brand-dark, dll */
+  
+  --color-brand-dark: #0B1416;       /* Background Utama */
+  --color-brand-panel: #112325;      /* Sidebar & Header */
+  --color-brand-card: #144136;       /* Kartu Hijau */
+  --color-brand-accent: #1C5B48;     /* Hover/Highlight */
+  --color-brand-text: #FFFFFF;       /* Teks Putih */
+  --color-brand-muted: #9CA3AF;      /* Teks Abu-abu */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+/* Global Styles */
+body {
+  background-color: var(--color-brand-dark);
+  color: var(--color-brand-text);
+  font-family: var(--font-sans);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-brand-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand-panel);
+  border-radius: 9999px;
+}
