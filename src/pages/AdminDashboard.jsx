@@ -13,7 +13,7 @@ const StatCard = ({ title, value, icon: Icon, color = "bg-brand-card" }) => (
   </div>
 );
 
-const Dashboard = () => {
+const AdminDashboard = () => {
   return (
     <div className="p-10">
       <h1 className="text-2xl font-semibold text-gray-300 mb-8">Dashboard Overview</h1>
@@ -28,4 +28,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default AdminDashboard;

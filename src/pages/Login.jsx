@@ -1,13 +1,63 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {db} from '../firebase';
+import { collection, query, where, getDocs } from 'firebase/firestore';
+import bcrypt from 'bcryptjs';
 
 const Login = () => {
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    navigate('/dashboard'); // Redirect ke dashboard setelah login
-  };
+    setError('');
+
+    try {
+      const q = query(collection(db, 'users'), where('email', '==', email));
+      const snapshot = await getDocs(q);
+
+      if (snapshot.empty) {
+        setError("email not found");
+        return;
+
+      }
+
+      const userDoc = snapshot.docs[0];
+      const userData = userDoc.data();
+
+      const isPasswordValid = bcrypt.compareSync(password, userData.passwordHash);
+      if (!isPasswordValid) {
+        setError("Incorrect password");
+        return;
+      }
+
+      localStorage.setItem('user', JSON.stringify({
+        id: userDoc.id,
+        name: userData.name,
+        email: userData.email,
+        role: userData.role
+      }));
+
+      if (userData.role === 'admin') {
+        navigate('/admin/dashboard');
+      
+      }else if (userData.role === 'staff') {
+        navigate('/staff/dashboard');
+      }else {
+        navigate('/viewer/dashboard');
+      }
+
+    }catch (err) {
+      console.error(err);
+        setError("Login failed. Try again.");
+      }
+    };
+   
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-brand-dark p-4">
@@ -15,14 +65,20 @@ const Login = () => {
         <h2 className="text-3xl font-bold text-center mb-8 text-black bg-transparent">
           <span className="text-white">Log in</span>
         </h2>
+
         
         <form onSubmit={handleLogin} className="space-y-6">
+          {error && <p className='text-red-500'>{error}</p>}
+
           <div>
             <label className="block text-xs font-medium text-gray-400 mb-2 uppercase tracking-wide">Email</label>
             <input 
               type="email" 
+              value={email}
+              onChange={ (e) => setEmail(e.target.value)}
               className="w-full bg-[#163033] border border-gray-700 rounded p-3 text-white focus:outline-none focus:border-brand-accent transition"
               placeholder="Enter your email"
+              required
             />
           </div>
           
@@ -30,8 +86,11 @@ const Login = () => {
             <label className="block text-xs font-medium text-gray-400 mb-2 uppercase tracking-wide">Password</label>
             <input 
               type="password" 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full bg-[#163033] border border-gray-700 rounded p-3 text-white focus:outline-none focus:border-brand-accent transition"
               placeholder="Enter your password"
+              required
             />
           </div>
 
@@ -49,6 +108,7 @@ const Login = () => {
       </div>
     </div>
   );
-};
+  };
+
 
 export default Login;

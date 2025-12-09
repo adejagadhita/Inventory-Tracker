@@ -4,10 +4,13 @@ import Sidebar from './components/Sidebar';
 import LandingPage from './pages/LandingPage'
 import Login from './pages/Login'
 import Register from './pages/Register';
-import Dashboard from './pages/Dashboard';
+import AdminDashboard from './pages/AdminDashboard';
+import StaffDashboard from './pages/StaffDashboard';
+import ViewerDashboard from './pages/ViewerDashboard';
 import Inventory from './pages/Inventory';
 import Sales from './pages/Sales';
 import Users from './pages/Users';
+import PrivateRoute from './components/PrivateRoute';
 
 // --- Layout Wrapper ---
 const Layout = ({ children }) => {
@@ -44,10 +47,48 @@ function App() {
           <Route path="/register" element={<Register />} />
 
           {/* 2. App Routes (Dengan Sidebar) */}
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/inventory" element={<Inventory />} />
+          <Route path="/admin/dashboard" element={
+            <PrivateRoute allowedRoles={['admin']}>
+              <AdminDashboard />
+              </PrivateRoute>
+          } />
+
+            <Route path="/staff/dashboard" element={
+            <PrivateRoute allowedRoles={['staff']}>
+              <StaffDashboard />
+              </PrivateRoute>
+          } />
+
+            <Route path="/viewer/dashboard" element={
+            <PrivateRoute allowedRoles={['viewer']}>
+              <ViewerDashboard />
+              </PrivateRoute>
+          } />
+
+            <Route path="inventory" element={
+            <PrivateRoute allowedRoles={['admin', 'staff']}>
+              <Inventory />
+              </PrivateRoute>
+          } />
+           
+          <Route path="sales" element={
+            <PrivateRoute allowedRoles={['admin', 'staff']}>
+              <Sales />
+              </PrivateRoute>
+          } />
+           
+            <Route path="users" element={
+            <PrivateRoute allowedRoles={['admin']}>
+              <Users />
+              </PrivateRoute>
+          } />
+           
+
+
+
+          {/* <Route path="/inventory" element={<Inventory />} />
           <Route path="/sales" element={<Sales />} />
-          <Route path="/users" element={<Users />} />
+          <Route path="/users" element={<Users />} /> */}
 
           {/* 3. Fallback Route */}
           <Route path="*" element={<Navigate to="/" replace />} />

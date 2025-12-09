@@ -1,14 +1,53 @@
-import React from 'react';
+import React, {useState}from 'react';
+import {db} from '../firebase';
+import { collection, addDoc, Timestamp, query, where, getDocs }  from 'firebase/firestore';
 import { Link, useNavigate } from 'react-router-dom';
+import bcrypt from 'bcryptjs';
 
 const Register = () => {
   const navigate = useNavigate();
 
-  const handleRegister = (e) => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleRegister = async (e) => {
     e.preventDefault();
-    // Logika register di sini (misal: kirim ke API)
-    console.log("Register Submitted");
-    navigate('/login'); // Redirect ke login setelah sukses daftar
+    setError('');
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    try {
+      const q = query(collection(db, 'users'), where('email', '==', email));
+      const snapshot = await getDocs(q);
+      if (!snapshot.empty) {
+        setError("Email already registered");
+        return;
+      }
+
+      const salt = bcrypt.genSaltSync(10);
+      const passwordHash = bcrypt.hashSync(password, salt);
+
+      await addDoc(collection(db, 'users'), {
+        name,
+        email,
+        passwordHash,
+        role: 'viewer',
+        createdAt: Timestamp.now()
+      });
+
+      alert("Register successful! You can login now.")
+      navigate('/login');
+
+    }catch (err) {
+      console.error(err);
+      setError("Failed to register. Try again.");
+    }
   };
 
   return (
@@ -23,6 +62,7 @@ const Register = () => {
         
         {/* Form */}
         <form onSubmit={handleRegister} className="space-y-5">
+          {error && <p className='text-red-500'>{error}</p>}
           
           {/* Full Name */}
           <div>
@@ -31,8 +71,11 @@ const Register = () => {
             </label>
             <input 
               type="text" 
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className="w-full bg-[#163033] border border-gray-700 rounded p-3 text-white focus:outline-none focus:border-brand-accent transition"
               placeholder="Enter your full name"
+              required
             />
           </div>
 
@@ -43,8 +86,11 @@ const Register = () => {
             </label>
             <input 
               type="email" 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full bg-[#163033] border border-gray-700 rounded p-3 text-white focus:outline-none focus:border-brand-accent transition"
               placeholder="Enter your email"
+              required
             />
           </div>
           
@@ -55,8 +101,11 @@ const Register = () => {
             </label>
             <input 
               type="password" 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full bg-[#163033] border border-gray-700 rounded p-3 text-white focus:outline-none focus:border-brand-accent transition"
               placeholder="Create a password"
+              required
             />
           </div>
 
@@ -67,8 +116,11 @@ const Register = () => {
             </label>
             <input 
               type="password" 
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               className="w-full bg-[#163033] border border-gray-700 rounded p-3 text-white focus:outline-none focus:border-brand-accent transition"
               placeholder="Retype your password"
+              required
             />
           </div>
 
