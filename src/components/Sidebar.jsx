@@ -52,7 +52,7 @@ const Sidebar = () => {
       >
         {/* Logo Area */}
         <div onClick={() => navigate("/")} className="p-8 pb-10 flex justify-center md:justify-start">
-          <img src="logo.svg" alt="logo" className="h-10 w-auto" />
+          <img src="/logo.svg" alt="logo" className="h-10 w-auto" />
         </div>
 
         {/* Navigation */}
