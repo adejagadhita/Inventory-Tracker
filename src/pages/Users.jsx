@@ -1,15 +1,63 @@
-import React from 'react';
-import { UserCheck } from 'lucide-react';
+import React, { useState } from 'react';
+import { UserCheck, Plus } from 'lucide-react';
 
 const Users = () => {
-  const usersData = [
+  const [isOpen, setIsOpen] = useState(false);
+
+  // DATA USERS PAKAI STATE
+  const [usersData, setUsersData] = useState([
     { id: 1, name: 'Admin', username: 'Admin@gmail.com', role: 'Admin', status: 'Active' },
     { id: 2, name: 'Ade', username: 'Ade Jagaditho', role: 'Staff', status: 'Active' },
     { id: 3, name: 'Budi', username: 'Budi Santoso', role: 'Staff', status: 'Inactive' },
-  ];
+  ]);
+
+  // FORM STATE
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    role: "Admin",
+  });
+
+  // HANDLE INPUT BERUBAH
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  // HANDLE SUBMIT
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const newUser = {
+      id: usersData.length + 1,
+      name: formData.name,
+      username: formData.email,
+      role: formData.role,
+      status: "Active",
+    };
+
+    // TAMBAH KE TABEL
+    setUsersData([...usersData, newUser]);
+
+    // RESET FORM
+    setFormData({
+      name: "",
+      email: "",
+      password: "",
+      role: "Admin",
+    });
+
+    // TUTUP POPUP
+    setIsOpen(false);
+  };
 
   return (
     <div className="p-6 sm:p-10 min-h-screen relative">
+
+      {/* Header */}
       <div className="flex items-center gap-3 mb-6 sm:mb-8">
         <UserCheck size={28} className="text-gray-400" />
         <h1 className="text-xl sm:text-2xl font-bold text-white">Users Data</h1>
@@ -22,7 +70,7 @@ const Users = () => {
             <tr>
               <th className="px-6 py-5 text-center w-16">No</th>
               <th className="px-6 py-5">Name</th>
-              <th className="px-6 py-5">Email</th>
+              <th className="px-6 py-5">Username</th>
               <th className="px-6 py-5">Access Rights</th>
               <th className="px-6 py-5 text-center">Status</th>
             </tr>
@@ -38,70 +86,117 @@ const Users = () => {
                 </td>
                 <td className="px-6 py-5">{user.role}</td>
                 <td className="px-6 py-5 text-center">
-                  <span
-                    className={`px-3 py-1 rounded-full text-xs font-bold border ${
-                      user.status === 'Active'
-                        ? 'bg-green-900/30 text-green-400 border-green-800'
-                        : 'bg-red-900/30 text-red-400 border-red-800'
-                    }`}
-                  >
-                    {user.status}
+                  <span className="px-3 py-1 rounded-full text-xs font-bold border bg-green-900/30 text-green-400 border-green-800">
+                    Active
                   </span>
                 </td>
-              </tr>
-            ))}
-
-            {/* rows pelengkap */}
-            {[...Array(3)].map((_, i) => (
-              <tr key={`empty-${i}`} className="h-16 border-b border-gray-800/50">
-                <td colSpan="5"></td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      {/* Mobile List Cards */}
-      <div className="sm:hidden space-y-4">
-        {usersData.map((user, index) => (
-          <div
-            key={user.id}
-            className="bg-brand-panel border border-gray-800 rounded-lg p-4 shadow-md"
-          >
-            <div className="text-gray-500 text-xs mb-2">#{index + 1}</div>
+      {/* Floating Add Button */}
+      <button
+        onClick={() => setIsOpen(true)}
+        className="absolute bottom-27 left-12 w-16 h-16 flex items-center justify-center
+                   rounded-full border-4 border-white text-white hover:bg-white/10 transition cursor-pointer z-10"
+      >
+        <Plus size={36} />
+      </button>
 
-            <div className="flex justify-between">
-              <span className="text-gray-400">Name</span>
-              <span className="text-white font-medium">{user.name}</span>
-            </div>
+      {/* Popup Form */}
+      {isOpen && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[999]">
+          <div className="bg-[#0a2d2a] w-11/12 sm:w-1/2 md:w-[450px] rounded-lg p-10 border border-gray-700">
 
-            <div className="flex justify-between mt-2">
-              <span className="text-gray-400">Username</span>
-              <span className="text-gray-300 underline underline-offset-4 decoration-gray-600">
-                {user.username}
-              </span>
-            </div>
+            <h2 className="text-xl font-bold text-white mb-8 text-center">
+              Add New User
+            </h2>
 
-            <div className="flex justify-between mt-2">
-              <span className="text-gray-400">Role</span>
-              <span className="text-gray-300">{user.role}</span>
-            </div>
+            {/* FORM */}
+            <form className="space-y-4" onSubmit={handleSubmit}>
 
-            <div className="flex justify-between mt-2">
-              <span className="text-gray-400">Status</span>
-              <span
-                className={`px-3 py-1 rounded-full text-xs font-bold border ${
-                  user.status === 'Active'
-                    ? 'bg-green-900/30 text-green-400 border-green-800'
-                    : 'bg-red-900/30 text-red-400 border-red-800'
-                }`}
+              {/* NAME */}
+              <div>
+                <label className="text-gray-300 text-sm">NAME</label>
+                <input
+                  name="name"
+                  type="text"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Enter your name"
+                  className="w-full bg-transparent border border-gray-500 text-white px-3 py-2 mt-1
+                             focus:outline-none focus:border-gray-300"
+                />
+              </div>
+
+              {/* EMAIL */}
+              <div>
+                <label className="text-gray-300 text-sm">EMAIL</label>
+                <input
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Enter your email"
+                  className="w-full bg-transparent border border-gray-500 text-white px-3 py-2 mt-1
+                             focus:outline-none focus:border-gray-300"
+                />
+              </div>
+
+              {/* PASSWORD */}
+              <div>
+                <label className="text-gray-300 text-sm">PASSWORD</label>
+                <input
+                  name="password"
+                  type="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="Enter your password"
+                  className="w-full bg-transparent border border-gray-500 text-white px-3 py-2 mt-1
+                             focus:outline-none focus:border-gray-300"
+                />
+              </div>
+
+              {/* ROLE */}
+              <div>
+                <label className="text-gray-300 text-sm">ROLE</label>
+                <select
+                  name="role"
+                  value={formData.role}
+                  onChange={handleChange}
+                  className="w-full bg-transparent border border-gray-500 text-white px-3 py-2 mt-1
+                             focus:outline-none"
+                >
+                  <option className="text-black">Admin</option>
+                  <option className="text-black">Staff</option>
+                  <option className="text-black">Viewer</option>
+                  
+                </select>
+              </div>
+
+              {/* SUBMIT BUTTON */}
+              <button
+                type="submit"
+                className="w-full bg-white text-black font-semibold py-2 mt-6
+                           hover:bg-gray-200 transition"
               >
-                {user.status}
-              </span>
-            </div>
+                Add User
+              </button>
+            </form>
+
+            <button
+              onClick={() => setIsOpen(false)}
+              className="mt-6 w-full bg-red-700 hover:bg-red-600 text-white py-2 rounded-md"
+            >
+              Close
+            </button>
+
           </div>
-        ))}
-      </div>
+        </div>
+      )}
+
     </div>
   );
 };
