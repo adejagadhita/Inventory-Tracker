@@ -4,14 +4,14 @@ import { Navigate } from 'react-router-dom';
 const PrivateRoute = ({ children, allowedRoles }) => {
   const user = JSON.parse(localStorage.getItem('user'));
 
+  // Belum login
   if (!user) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/login" replace />;
   }
 
-  if (!allowedRoles.includes(user.role)) {
-    if (user.role === 'admin') return <Navigate to="/admin/dashboard" />;
-    if (user.role === 'staff') return <Navigate to="/staff/dashboard" />;
-    return <Navigate to="/viewer/dashboard" />;
+  // Role tidak diizinkan
+  if (allowedRoles && !allowedRoles.includes(user.role)) {
+    return <Navigate to="/dashboard" replace />;
   }
 
   return children;

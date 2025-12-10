@@ -150,6 +150,7 @@ const Inventory = () => {
             value={formData.product}
             onChange={handleChange}
             placeholder="Product Name"
+            className="text-white rounded-full px-6 py-2 border-2 border-white bg-transparent"
           />
 
           <input
@@ -158,9 +159,12 @@ const Inventory = () => {
             value={formData.stock}
             onChange={handleChange}
             placeholder="Stock"
+            className="text-white rounded-full px-6 py-2 border-2 border-white bg-transparent"
           />
 
-          <button type="submit">
+          <button 
+          type="submit"
+          className="text-white cursor-pointer rounded-full px-6 py-2 border-2 border-white bg-transparent">
             Add
           </button>
 

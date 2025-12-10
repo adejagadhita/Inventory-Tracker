@@ -42,14 +42,7 @@ const Login = () => {
         role: userData.role
       }));
 
-      if (userData.role === 'admin') {
-        navigate('/admin/dashboard');
-      
-      }else if (userData.role === 'staff') {
-        navigate('/staff/dashboard');
-      }else {
-        navigate('/viewer/dashboard');
-      }
+     navigate('/dashboard');
 
     }catch (err) {
       console.error(err);
