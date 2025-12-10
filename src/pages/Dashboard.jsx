@@ -13,10 +13,17 @@ const StatCard = ({ title, value, icon: Icon, color = "bg-brand-card" }) => (
   </div>
 );
 
-const AdminDashboard = () => {
+const Dashboard = () => {
+
+  const user = JSON.parse(localStorage.getItem('user'));
+
   return (
     <div className="p-10">
       <h1 className="text-2xl font-semibold text-gray-300 mb-8">Dashboard Overview</h1>
+
+         <p className="text-sm text-gray-500 mb-8">
+        Logged in as: <span className="text-white">{user?.role}</span>
+      </p>  
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <StatCard title="New Orders" value="190" icon={ShoppingCart} />
@@ -28,4 +35,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard;
+export default Dashboard;
