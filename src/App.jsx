@@ -9,6 +9,7 @@ import Inventory from './pages/Inventory';
 import Sales from './pages/Sales';
 import Users from './pages/Users';
 
+
 // --- Layout Wrapper ---
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -26,22 +27,24 @@ const Layout = ({ children }) => {
   return (
     <div className="flex min-h-screen bg-brand-dark text-brand-text font-sans">
 
+      {/* SIDEBAR */}
       {!isPublicPage && <Sidebar />}
 
+      {/* MAIN CONTENT AREA */}
       <main
         className={`
-          flex-1 transition-all duration-300 
+          flex-1 transition-all duration-300 relative
           ${!isPublicPage ? 'md:ml-64' : 'w-full'}
         `}
       >
 
-        {/* TOP BAR ICON PROFIL */}
+        {/* FLOATING PROFILE ICON */}
         {!isPublicPage && (
-          <div className="relative w-full flex justify-end p-4 bg-brand-dark">
+          <div className="fixed top-4 right-6 z-50">
 
             {/* ICON PROFIL */}
             <div
-              className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center cursor-pointer"
+              className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center cursor-pointer shadow"
               onClick={() => setOpenProfile(!openProfile)}
             >
               <svg
@@ -58,18 +61,17 @@ const Layout = ({ children }) => {
               </svg>
             </div>
 
-            {/* POPUP PROFIL */}
+            {/* POPUP PROFILE */}
             {openProfile && (
-              <div className="absolute z-50 top-16 right-4 bg-black -900 text-white p-5 rounded-xl shadow-xl w-72 border border-gray-700">
+              <div className="absolute right-0 mt-3 bg-white text-black p-5 rounded-xl shadow-xl w-72 border border-gray-300">
 
-                {/* Foto (ikon user besar) */}
                 <div className="w-full flex justify-center mb-4">
-                  <div className="w-20 h-20 bg-white -700 rounded-full flex items-center justify-center">
+                  <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center">
                     <svg
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
-                      className="w-10 h-10 text-gray-300"
+                      className="w-10 h-10 text-gray-500"
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
                         d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
@@ -79,14 +81,10 @@ const Layout = ({ children }) => {
                   </div>
                 </div>
 
-                {/* Nama */}
                 <p className="text-xl font-semibold text-center mb-1">{user.name}</p>
+                <p className="text-sm text-center text-gray-600">{user.email}</p>
 
-                {/* Email */}
-                <p className="text-sm text-center text-gray-300">{user.email}</p>
-
-                {/* Role */}
-                <p className="text-center mt-3 bg-gray-700 p-2 rounded-lg text-sm inline-block w-full">
+                <p className="text-center mt-3 bg-gray-100 p-2 rounded-lg text-sm">
                   {user.role}
                 </p>
               </div>
@@ -95,15 +93,15 @@ const Layout = ({ children }) => {
           </div>
         )}
 
-        {/* PAGE CONTENT */}
+        {/* PAGE CONTENT — TANPA mt-16 AGAR TIDAK TURUN */}
         <div className="p-4">
           {children}
         </div>
-
       </main>
     </div>
   );
 };
+
 
 
 // --- Main App Component ---
