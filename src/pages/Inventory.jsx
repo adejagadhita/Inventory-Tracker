@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import {
   getInventory,
   addInventoryItem
-} from "../services/inventoryService";
+} from "../Services/inventoryService.Js";
 
 const Inventory = () => {
 
@@ -98,7 +98,9 @@ const Inventory = () => {
             <tr>
               {/* <th className="px-6 py-5 text-center w-24">Image</th> */}
               <th className="px-6 py-5">Product Name</th>
-              <th className="px-6 py-5 text-center">Stock</th>
+              <th className="px-55 py-5 text-center">Stock</th>
+              <th className="px-55 py-5 text-center">Delete</th>
+             
             </tr>
           </thead>
 
@@ -128,7 +130,7 @@ const Inventory = () => {
           Add New Product
         </h2>
 
-        <form onSubmit={handleAddProduct} className="flex gap-4 items-center">
+        <form onSubmit={handleAddProduct} className="flex gap-6 items-center">
 
           {/* <input
             type="file"
@@ -150,7 +152,7 @@ const Inventory = () => {
             value={formData.product}
             onChange={handleChange}
             placeholder="Product Name"
-            className="text-white rounded-full px-6 py-2 border-2 border-white bg-transparent"
+            className="text-white  placeholder:text-white  rounded-full px-6 py-2  border-2 border-white "
           />
 
           <input
@@ -159,12 +161,10 @@ const Inventory = () => {
             value={formData.stock}
             onChange={handleChange}
             placeholder="Stock"
-            className="text-white rounded-full px-6 py-2 border-2 border-white bg-transparent"
+            className="text-white placeholder:text-white  rounded-full px-6 py-2 border-2 border-white"
           />
 
-          <button 
-          type="submit"
-          className="text-white cursor-pointer rounded-full px-6 py-2 border-2 border-white bg-transparent">
+          <button type="submit" className="text-white  placeholder:text-white  rounded-full px-6 py-2  border-2 border-white ">
             Add
           </button>
 

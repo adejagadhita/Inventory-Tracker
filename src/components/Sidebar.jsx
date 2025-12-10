@@ -86,6 +86,11 @@ const Sidebar = () => {
               <span>Logout</span>
            </NavLink>
         </div>
+
+        <div className=''>
+
+        </div>
+
       </aside>
     </>
   );
