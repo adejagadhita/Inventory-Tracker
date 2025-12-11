@@ -86,7 +86,7 @@ const Inventory = () => {
   // UI
   // =====================
   return (
-    <div className="p-10">
+    <div className="px-5">
       <h1 className="text-2xl font-semibold text-gray-300 mb-8">
         Inventory
       </h1>
@@ -98,8 +98,8 @@ const Inventory = () => {
             <tr>
               {/* <th className="px-6 py-5 text-center w-24">Image</th> */}
               <th className="px-6 py-5">Product Name</th>
-              <th className="px-55 py-5 text-center">Stock</th>
-              <th className="px-55 py-5 text-center">Delete</th>
+              <th className="px-6 py-5 text-center">Stock</th>
+              <th className="px-6 py-5 text-center">Delete</th>
              
             </tr>
           </thead>

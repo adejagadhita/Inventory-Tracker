@@ -11,6 +11,13 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
+  const guestUser = {
+    id: 'guest',
+    name: 'Guest',
+    email: '',
+    role: 'guest'
+  }
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -85,11 +92,24 @@ const Login = () => {
               placeholder="Enter your password"
               required
             />
+
+               <label
+                 type="button"
+                  onClick={() => {
+                     localStorage.setItem('user', JSON.stringify(guestUser));
+                     navigate('/dashboard'); 
+                  }}
+                  className="text-m font-light text-blue-400 cursor-pointer hover:underline">
+                   Continue as Guest
+              </label>
           </div>
+
+       
+
 
           <button 
             type="submit" 
-            className="w-full bg-gray-300 hover:bg-white text-black font-bold py-3 rounded-sm transition-colors mt-4"
+            className="w-full bg-gray-300 hover:bg-white text-black font-bold py-3 rounded-sm transition-colors mt-4 cursor-pointer"
           >
             Log in
           </button>
@@ -98,6 +118,8 @@ const Login = () => {
         <p className="text-center text-gray-500 text-sm mt-6">
           Don't have an account? <a href="/register" className="text-white hover:underline">Sign up</a>
         </p>
+
+
       </div>
     </div>
   );

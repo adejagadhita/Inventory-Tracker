@@ -85,7 +85,7 @@ const Sales = () => {
   };
 
   return (
-    <div className="p-10 min-h-screen">
+    <div className="px-5 min-h-screen">
       <h1 className="text-2xl font-semibold text-gray-400 mb-8">
         Sales History
       </h1>
