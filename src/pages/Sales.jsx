@@ -3,6 +3,8 @@ import { createSale, getSales } from '../services/salesService';
 import { getInventory } from "../services/inventoryService";
 
 const Sales = () => {
+
+  const user = JSON.parse(localStorage.getItem("user"));
   const [salesData, setSalesData] = useState([]);
   const [products, setProducts] = useState([]);
   const [formData, setFormData] = useState({
@@ -37,7 +39,12 @@ const Sales = () => {
   const handleAddSale = async (e) => {
     e.preventDefault();
 
-    // ✅ basic validation
+      if (user.role === "viewer", "guest") {
+    alert("Viewer does not have permission to modify data.");
+    return;
+  }
+
+    //  basic validation
     if (!formData.productId || !formData.sold || !formData.date) {
       alert("Lengkapi data");
       return;

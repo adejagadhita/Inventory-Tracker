@@ -239,9 +239,9 @@ const Users = () => {
                   className="w-full bg-transparent border border-gray-500 text-white px-3 py-2 mt-1
                              focus:outline-none"
                 >
-                  <option className="text-black">Admin</option>
-                  <option className="text-black">Staff</option>
-                  <option className="text-black">Viewer</option>
+                  <option className="text-black">admin</option>
+                  <option className="text-black">staff</option>
+                  <option className="text-black">viewer</option>
                 </select>
               </div>
 

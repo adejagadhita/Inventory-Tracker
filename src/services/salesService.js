@@ -9,7 +9,7 @@ import {
   Timestamp
 } from "firebase/firestore";
 
-// 🔹 Ambil semua sales
+//  Ambil semua sales
 export async function getSales() {
   const snapshot = await getDocs(collection(db, "sales"));
 
@@ -19,7 +19,7 @@ export async function getSales() {
   }));
 }
 
-// 🔹 Tambah sales baru
+//  Tambah sales baru
 export async function createSale(productId, sold, date) {
   const productRef = doc(db, "inventory", productId);
   const productSnap = await getDoc(productRef);
@@ -30,16 +30,16 @@ export async function createSale(productId, sold, date) {
 
   const productData = productSnap.data();
 
-  // ✅ simpan sales
+  //  simpan sales
   await addDoc(collection(db, "sales"), {
     productId,
-    productName: productData.name, // ⭐ INI PENTING
+    productName: productData.name, //  INI PENTING
     sold,
     date: Timestamp.fromDate(new Date(date)),
     createdAt: Timestamp.now()
   });
 
-  // ✅ kurangi stok
+  //  kurangi stok
   await updateDoc(productRef, {
     stock: productData.stock - sold
   });

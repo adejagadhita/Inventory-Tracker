@@ -8,10 +8,9 @@ import {
 import SearchBar from "../components/SearchBar";
 
 const Inventory = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
 
-  // =====================
-  // STATE
-  // =====================
+ 
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [formData, setFormData] = useState({
@@ -20,9 +19,8 @@ const Inventory = () => {
    
   });
 
-  // =====================
+  
   // LOAD INVENTORY
-  // =====================
   useEffect(() => {
     loadInventory();
   }, []);
@@ -37,17 +35,22 @@ const Inventory = () => {
    }
   }
 
-  // =====================
+ 
   // FILTERED PRODUCTS
-  // =====================
+
   const filteredProducts = products.filter(product =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // =====================
+  
   // DELETE PRODUCT
-  // =====================
+  
   const handleDeleteProduct = async (id) => {
+  if (user.role === "viewer", "guest") {
+    alert("Viewer does not have permission to modify data.");
+    return;
+  }
+
   if (!window.confirm("Are you sure you want to delete this product?"))  return;
     try {
       await deleteInventoryItem(id);
@@ -61,9 +64,9 @@ const Inventory = () => {
   
   };
 
-  // =====================
+  
   // FORM HANDLERS
-  // =====================
+  
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -75,6 +78,10 @@ const Inventory = () => {
   const handleAddProduct = async (e) => {
     e.preventDefault();
 
+    if (user.role === "viewer","guest") {
+    alert("Viewer does not have permission to modify data.");
+    return;
+  }
 
     try {
       if (!formData.product || !formData.stock) {
@@ -101,9 +108,7 @@ const Inventory = () => {
   }
   };
 
-  // =====================
-  // UI
-  // =====================
+  
   return (
     <div className="p-4 sm:p-6  min-h-screen md:ml- transition-all duration-300">
       <h1 className="text-xl sm:text-2xl font-semibold text-brand-text mb-6 sm:mb-8">
@@ -159,20 +164,6 @@ const Inventory = () => {
         </h2>
 
         <form onSubmit={handleAddProduct} className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center flex-wrap">
-
-          {/* <input
-            type="file"
-            accept="image/*"
-            onChange={handleFile}
-          /> */}
-
-          {/* {formData.img && (
-            <img
-              src={URL.createObjectURL(formData.img)}
-              alt="Preview"
-              className="w-20 h-20 object-cover rounded"
-            />
-          )} */}
 
           <input
             type="text"
