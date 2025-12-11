@@ -39,7 +39,7 @@ const Sales = () => {
   const handleAddSale = async (e) => {
     e.preventDefault();
 
-      if (user.role === "viewer", "guest") {
+      if (user.role === "viewer" || user.role === "guest") {
     alert("Viewer does not have permission to modify data.");
     return;
   }
