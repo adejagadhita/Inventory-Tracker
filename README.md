@@ -91,3 +91,36 @@ Frontend:
 ### Users Page
 ![Users](./screenshots/ss%207.png)
 
+
+
+## Breakdown of Tasks (Pembagian Tugas)
+
+### Anggota Kelompok
+
+* Ade Jagadhita
+* Sita
+
+### Pembagian Peran & Tugas
+
+#### Ade Jagadhita — Backend Developer
+
+* Mengembangkan logika backend menggunakan Firebase.
+* Mengatur Firestore Database & Firebase Storage.
+* Membuat fitur autentikasi dan sistem role (Admin, Staff, Viewer).
+* Mengimplementasikan CRUD Inventory.
+* Mendesain struktur dan relasi data pada Firestore.
+* Menyusun dokumentasi & README.
+
+#### Sita — Frontend Developer
+
+* Mengembangkan tampilan aplikasi menggunakan React.
+* Mengimplementasikan halaman Login, Register, Dashboard, Inventory, Users, Sales.
+* Menghubungkan frontend dengan service & fungsi backend.
+* Mengatur styling menggunakan Tailwind CSS dan Lucide Icons.
+
+#### Ade & Sita — UI/UX Designer (Kolaboratif)
+
+* Merancang tampilan UI dan flow UX aplikasi.
+* Menentukan layout, warna, dan struktur halaman.
+* Membuat wireframe / konsep tampilan sebelum implementasi.
+
