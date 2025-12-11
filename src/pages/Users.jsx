@@ -1,23 +1,42 @@
-import React, { useState } from 'react';
-import { UserCheck, Plus } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { UserCheck, Plus, Construction } from 'lucide-react';
+import { db } from '../firebase';
+import { collection, getDocs, addDoc, Timestamp, } from 'firebase/firestore';
+import bcrypt from 'bcryptjs';
+
 
 const Users = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  // DATA USERS PAKAI STATE
-  const [usersData, setUsersData] = useState([
-    { id: 1, name: 'Admin', username: 'Admin@gmail.com', role: 'Admin', status: 'Active' },
-    { id: 2, name: 'Ade', username: 'Ade Jagaditho', role: 'Staff', status: 'Active' },
-    { id: 3, name: 'Budi', username: 'Budi Santoso', role: 'Staff', status: 'Inactive' },
-  ]);
+  const [userData, setUserData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // FORM STATE
+ 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
     role: "Admin",
   });
+
+ useEffect(() => {
+  const fetchUsers = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, "users"));
+      const users = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setUserData(users);
+    } catch (error) {
+      console.error("Gagal mengambil data users:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchUsers();
+}, []);
 
   // HANDLE INPUT BERUBAH
   const handleChange = (e) => {
@@ -28,21 +47,50 @@ const Users = () => {
   };
 
   // HANDLE SUBMIT
-  const handleSubmit = (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    const newUser = {
-      id: usersData.length + 1,
+  if (!formData.password) {
+  alert("Password wajib diisi");
+  return;
+}
+
+if (!formData.name) {
+  alert("Nama wajib diisi");
+  return;
+}
+
+if (!formData.email) {
+  alert("Email wajib diisi");
+  return;
+}
+
+if (!formData.role) {
+  alert("Role wajib diisi");
+  return;
+}
+
+
+  try {
+    // HASH PASSWORD
+    const salt = bcrypt.genSaltSync(10);
+    const passwordHash = bcrypt.hashSync(formData.password, salt);
+
+    await addDoc(collection(db, "users"), {
       name: formData.name,
-      username: formData.email,
+      email: formData.email,
+      passwordHash,
       role: formData.role,
-      status: "Active",
-    };
+      createdAt: Timestamp.now()
+    });
 
-    // TAMBAH KE TABEL
-    setUsersData([...usersData, newUser]);
+    const querySnapshot = await getDocs(collection(db, "users"));
+    const users = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+    setUserData(users);
 
-    // RESET FORM
     setFormData({
       name: "",
       email: "",
@@ -50,16 +98,19 @@ const Users = () => {
       role: "Admin",
     });
 
-    // TUTUP POPUP
     setIsOpen(false);
-  };
+
+  } catch (error) {
+    console.error("Gagal menambahkan user:", error);
+  }
+};
 
   return (
-    <div className="p-6 sm:p-10 min-h-screen relative">
+    <div className="p-6 sm:px-5 min-h-screen relative">
 
       {/* Header */}
       <div className="flex items-center gap-3 mb-6 sm:mb-8">
-        <UserCheck size={28} className="text-gray-400" />
+        <UserCheck size={28} className="text-white-400" />
         <h1 className="text-xl sm:text-2xl font-bold text-white">Users Data</h1>
       </div>
 
@@ -70,31 +121,35 @@ const Users = () => {
             <tr>
               <th className="px-6 py-5 text-center w-16">No</th>
               <th className="px-6 py-5">Name</th>
-              <th className="px-6 py-5">Username</th>
+              <th className="px-6 py-5">Email</th>
               <th className="px-6 py-5">Access Rights</th>
-              <th className="px-6 py-5 text-center">Status</th>
+              <th className="px-6 py-5 text-center"></th>
             </tr>
           </thead>
 
           <tbody className="divide-y divide-gray-800 text-gray-300">
-            {usersData.map((user, index) => (
+            {userData.map((user, index) => (
               <tr key={user.id} className="hover:bg-white/5 transition-colors">
                 <td className="px-6 py-5 text-center text-gray-500">{index + 1}</td>
                 <td className="px-6 py-5 font-medium text-white">{user.name}</td>
                 <td className="px-6 py-5 text-gray-400 underline decoration-gray-600 underline-offset-4">
-                  {user.username}
+                  {user.email}
                 </td>
                 <td className="px-6 py-5">{user.role}</td>
                 <td className="px-6 py-5 text-center">
-                  <span className="px-3 py-1 rounded-full text-xs font-bold border bg-green-900/30 text-green-400 border-green-800">
-                    Active
-                  </span>
+                 
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
+
+
+
+
+
 
       {/* Floating Add Button */}
       <button

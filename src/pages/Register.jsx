@@ -13,6 +13,8 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
 
+  
+
   const handleRegister = async (e) => {
     e.preventDefault();
     setError('');
@@ -122,12 +124,17 @@ const Register = () => {
               placeholder="Retype your password"
               required
             />
+
+         
           </div>
+
+          
+
 
           {/* Submit Button */}
           <button 
             type="submit" 
-            className="w-full bg-gray-300 hover:bg-white text-black font-bold py-3 rounded-sm transition-colors mt-6"
+            className="w-full bg-gray-300 hover:bg-white text-black font-bold py-3 rounded-sm transition-colors mt-6 cursor-pointer"
           >
             Sign Up
           </button>

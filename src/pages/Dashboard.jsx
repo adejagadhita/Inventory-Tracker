@@ -18,7 +18,7 @@ const Dashboard = () => {
   const user = JSON.parse(localStorage.getItem('user'));
 
   return (
-    <div className="p-10">
+    <div className="px-5">
       <h1 className="text-2xl font-semibold text-white-300 mb-8">Dashboard Overview</h1>
 
       
