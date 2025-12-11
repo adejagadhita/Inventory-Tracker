@@ -73,23 +73,30 @@ Frontend:
 ### Landing Page
 ![Landing](./screenshots/ss%201.png)
 
+
 ### Login Page
 ![Login](./screenshots/ss%202.png)
+
 
 ### Register
 ![Register](./screenshots/ss%203.png)
 
+
 ### Dashboard
 ![Dashboard](./screenshots/ss%204.png)
+
 
 ### Inventory Page
 ![Inventory](./screenshots/ss%205.png)
 
+
 ### Sales Page
 ![Sales](./screenshots/ss%206.png)
 
+
 ### Users Page
 ![Users](./screenshots/ss%207.png)
+
 
 
 
