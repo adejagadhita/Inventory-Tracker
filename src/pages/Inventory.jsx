@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { Search, Trash2 } from "lucide-react";
 import {
   getInventory,
-  addInventoryItem
-} from "../Services/inventoryService.Js";
+  addInventoryItem,
+  deleteInventoryItem
+} from "../services/inventoryService.js";
 import SearchBar from "../components/SearchBar";
 
 const Inventory = () => {
@@ -46,11 +47,18 @@ const Inventory = () => {
   // =====================
   // DELETE PRODUCT
   // =====================
-  const handleDeleteProduct = (id) => {
-    if (window.confirm('Apakah Anda yakin ingin menghapus produk ini?')) {
-      setProducts(products.filter(item => item.id !== id));
-      alert('Produk berhasil dihapus!');
+  const handleDeleteProduct = async (id) => {
+  if (!window.confirm("Are you sure you want to delete this product?"))  return;
+    try {
+      await deleteInventoryItem(id);
+      await loadInventory();
+      alert("Product deleted successfully!");
+    } catch (error) {
+      console.error("Gagal menghapus produk:", error);
+      alert("Failed to delete product");
     }
+
+  
   };
 
   // =====================
@@ -112,7 +120,7 @@ const Inventory = () => {
             <tr>
               <th className="px-4 sm:px-6 py-4 sm:py-5 min-w-[150px] sm:min-w-[200px]">Product Name</th>
               <th className="px-4 sm:px-6 py-4 sm:py-5 text-center min-w-20 sm:min-w-[100px]">Stock</th>
-              <th className="px-4 sm:px-6 py-4 sm:py-5 text-center min-w-20 sm:min-w-[100px]">Action</th>
+              <th className="px-4 sm:px-6 py-4 sm:py-5 text-center min-w-20 sm:min-w-[100px]"></th>
             </tr>
           </thead>
 

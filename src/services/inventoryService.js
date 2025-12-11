@@ -4,7 +4,9 @@ import {
   collection,
   getDocs,
   addDoc,
-  Timestamp
+  Timestamp,
+  deleteDoc,
+  doc
 } from "firebase/firestore";
 
 
@@ -35,4 +37,8 @@ export async function addInventoryItem({
     stock,
     createdAt: Timestamp.now()
   });
+}
+
+export async function deleteInventoryItem(id) {
+  await deleteDoc(doc(db, "inventory", id));
 }

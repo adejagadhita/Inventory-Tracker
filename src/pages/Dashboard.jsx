@@ -1,5 +1,9 @@
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 import { ShoppingCart, Package, AlertCircle, ShoppingBag } from 'lucide-react';
+import { getDashboardData } from '../services/dashboardService';
+
+
+
 
 const StatCard = ({ title, value, icon: Icon, color = "bg-brand-card" }) => (
   <div className={`${color} p-6 rounded-sm text-white relative overflow-hidden min-h-[150px] flex flex-col justify-between hover:translate-y-[-2px] transition-transform shadow-lg`}>
@@ -13,9 +17,28 @@ const StatCard = ({ title, value, icon: Icon, color = "bg-brand-card" }) => (
   </div>
 );
 
+
+
 const Dashboard = () => {
 
-  const user = JSON.parse(localStorage.getItem('user'));
+  const [stats, setStats] = useState({
+    newOrders: 0,
+    stockInStorage: 0,
+    lowOnStock: 0,
+    totalSold: 0
+  })
+
+  useEffect(() => {
+   const load = async () => {
+    const data = await getDashboardData();
+    setStats(data);
+
+   };
+
+   load();
+  },[]);
+
+  // const user = JSON.parse(localStorage.getItem('user'));
 
   return (
     <div className="px-5">
@@ -23,10 +46,10 @@ const Dashboard = () => {
 
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <StatCard title="New Orders" value="190" icon={ShoppingCart} />
-        <StatCard title="Stock In Storage" value="76" icon={Package} />
-        <StatCard title="Low on Stock" value="12" icon={AlertCircle} />
-        <StatCard title="Total Sold" value="Sold" icon={ShoppingBag} />
+        <StatCard title="New Orders" value={stats.newOrders} icon={ShoppingCart} />
+        <StatCard title="Stock In Storage" value={stats.stockInStorage} icon={Package} />
+        <StatCard title="Low on Stock" value={stats.lowOnStock} icon={AlertCircle} />
+        <StatCard title="Total Sold" value={stats.totalSold} icon={ShoppingBag} />
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import { doc, getDoc} from 'firebase/firestore';
 import { db } from './firebase';
 import { collection, query, where, getDocs } from "firebase/firestore";
 
+import PrivateRoute from './components/PrivateRoute';
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -85,7 +86,14 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/inventory" element={<Inventory />} />
           <Route path="/sales" element={<Sales />} />
-          <Route path="/users" element={<Users />} />
+          <Route
+          path="/users"
+          element={
+            <PrivateRoute allowedRoles={['admin']}>
+              <Users />
+            </PrivateRoute>
+          }
+        />
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
