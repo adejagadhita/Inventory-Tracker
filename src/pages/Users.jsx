@@ -1,4 +1,3 @@
-// ...existing code...
 import React, { useState, useEffect } from 'react';
 import { UserCheck, Plus } from 'lucide-react';
 import { db } from '../firebase';
@@ -270,4 +269,3 @@ const Users = () => {
 };
 
 export default Users;
-// ...existing code...
