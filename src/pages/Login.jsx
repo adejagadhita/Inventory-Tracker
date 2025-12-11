@@ -68,7 +68,7 @@ const Login = () => {
         <form onSubmit={handleLogin} className="space-y-6">
           {error && <p className='text-red-500'>{error}</p>}
 
-          {/* EMAIL */}
+          { /* EMAIL */ }
           <div>
             <label className="block text-xs font-medium text-gray-400 mb-2 uppercase tracking-wide">
               Email

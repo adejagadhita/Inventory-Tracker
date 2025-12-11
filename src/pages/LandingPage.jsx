@@ -4,11 +4,9 @@ import { CheckCircle2, MapPin, Phone, Mail } from 'lucide-react';
 
 const LandingPage = () => {
   return (
-    // FIX 1: Tambahkan 'overflow-x-hidden' agar tidak ada scroll samping
+   
     <div className="min-h-screen bg-brand-dark text-brand-text font-sans flex flex-col overflow-x-hidden">
-      
-      {/* --- NAVBAR --- */}
-      {/* FIX 2: Kurangi padding navbar (px-4 untuk mobile, md:px-6 untuk desktop) */}
+    
       <nav className="bg-brand-dark fixed top-0 left-0 right-0 flex items-center justify-between px-4 md:px-6 py-4 max-w-7xl mx-auto z-50">
         <div className="flex items-center">
           <div className="w-10 h-10 flex items-center justify-center rounded-sm">
@@ -22,7 +20,7 @@ const LandingPage = () => {
         </div>
 
         <div className="flex items-center gap-2 md:gap-4">
-          {/* FIX 3: Perkecil tombol di mobile (px-3 py-1.5 text-xs) -> (px-6 py-2 text-sm) di desktop */}
+        
           <Link 
             to="/login" 
             className="px-3 py-1.5 md:px-6 md:py-2 text-xs md:text-sm font-medium text-white border border-brand-accent rounded hover:bg-brand-accent/20 transition-all"
@@ -38,13 +36,11 @@ const LandingPage = () => {
         </div>
       </nav>
 
-      {/* --- MAIN CONTENT --- */}
-      {/* FIX 4: Ubah padding main jadi lebih kecil di mobile (px-4) */}
+    
       <main className="flex-grow max-w-5xl mx-auto px-4 md:px-8 pt-24 md:pt-32 pb-20 space-y-20 md:space-y-32">
         
-        {/* 1. HERO SECTION */}
+        
         <div id="Hero" className="scroll-mt-24 flex flex-col md:flex-row items-center gap-8 md:gap-12">
-          {/* FIX 5: Ubah kotak logo jadi responsif (w-48 di mobile, w-64 di desktop) */}
           <div className="bg-[#0f1b1d] p-2 rounded-lg shadow-2xl border border-gray-800 flex flex-col items-center justify-center w-48 h-48 md:w-64 md:h-64 shrink-0">
             <div className="w-full h-full flex items-center justify-center rounded-sm mb-4">
               <img className="w-full h-full" src="/logo.svg" alt="logo" />
@@ -62,7 +58,7 @@ const LandingPage = () => {
           </div>
         </div>
 
-        {/* 2. WHAT IS THIS APP? */}
+       
         <section id="about" className="scroll-mt-24 space-y-4">
           <h2 className="text-2xl md:text-3xl font-bold">
             <span className="text-brand-accent text-4xl md:text-5xl">What</span> <br />
@@ -73,7 +69,7 @@ const LandingPage = () => {
           </p>
         </section>
 
-        {/* 3. WHY THIS APP EXISTS? */}
+        
         <section className="scroll-mt-24 space-y-6">
           <h2 className="text-2xl md:text-3xl font-bold">
             <span className="text-brand-accent text-4xl md:text-5xl">Why</span> <br />
@@ -92,14 +88,14 @@ const LandingPage = () => {
                 <div className="shrink-0 w-8 h-8 rounded-full bg-brand-accent/20 flex items-center justify-center text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition-colors">
                   <CheckCircle2 size={18} />
                 </div>
-                {/* FIX 6: Text size responsive */}
+               
                 <span className="font-medium text-gray-200 text-sm md:text-base">{text}</span>
               </div>
             ))}
           </div>
         </section>
 
-        {/* 4. WHO THIS APP IS FOR? */}
+        
         <section className="scroll-mt-24 space-y-4">
           <h2 className="text-2xl md:text-3xl font-bold">
             <span className="text-brand-accent text-4xl md:text-5xl">Who</span> <br />
@@ -112,7 +108,7 @@ const LandingPage = () => {
 
       </main>
 
-      {/* --- FOOTER --- */}
+      
       <footer className="bg-[#021a15] text-white pt-12 md:pt-16 pb-8 rounded-t-[2rem] md:rounded-t-[3rem] mt-auto relative z-10">
         <div className="max-w-4xl mx-auto px-6 flex flex-col items-center">
           

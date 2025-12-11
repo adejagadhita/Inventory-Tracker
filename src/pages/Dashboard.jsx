@@ -38,7 +38,6 @@ const Dashboard = () => {
    load();
   },[]);
 
-  // const user = JSON.parse(localStorage.getItem('user'));
 
   return (
     <div className="px-5">
