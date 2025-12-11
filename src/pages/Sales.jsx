@@ -86,7 +86,7 @@ const Sales = () => {
 
   return (
     <div className="px-5 min-h-screen">
-      <h1 className="text-2xl font-semibold text-gray-400 mb-8">
+      <h1 className="text-2xl font-semibold text-white-400 mb-8">
         Sales History
       </h1>
 
@@ -102,7 +102,7 @@ const Sales = () => {
           <tbody className="divide-y divide-gray-800 text-gray-300">
             {salesData.map(item => (
               <tr key={item.id}>
-                <td className="px-8 py-5 text-gray-400">
+                <td className="px-8 py-5 text-white-400">
                   {item.date?.seconds
                     ? new Date(item.date.seconds * 1000).toLocaleDateString()
                     : '-'}
@@ -110,7 +110,7 @@ const Sales = () => {
                 <td className="px-8 py-5 text-white">
                   {item.productName}
                 </td>
-                <td className="px-8 py-5 text-center font-bold text-brand-accent">
+                <td className="px-8 py-5 text-center font-bold text-white-accent">
                   {item.sold}
                 </td>
               </tr>
