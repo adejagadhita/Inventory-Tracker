@@ -3,7 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import bcrypt from 'bcryptjs';
-import { Eye, EyeOff } from 'lucide-react'; // 🔥 ICON MATA
+import { Eye, EyeOff } from 'lucide-react';
+
+
+ 
 
 const Login = () => {
   const navigate = useNavigate();
@@ -11,7 +14,9 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [showPassword, setShowPassword] = useState(false); // 👁️ state toggle
+  const [showPassword, setShowPassword] = useState(false); 
+
+  const [loading, setLoading] = useState(false);
 
   const guestUser = {
     id: 'guest',
@@ -23,12 +28,16 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
+   setLoading(true);
+
+   
 
     try {
       const q = query(collection(db, 'users'), where('email', '==', email));
       const snapshot = await getDocs(q);
 
       if (snapshot.empty) {
+        setLoading(false);
         setError("Email not found");
         return;
       }
@@ -38,6 +47,7 @@ const Login = () => {
 
       const isPasswordValid = bcrypt.compareSync(password, userData.passwordHash);
       if (!isPasswordValid) {
+        setLoading(false);
         setError("Incorrect password");
         return;
       }
@@ -54,8 +64,14 @@ const Login = () => {
     } catch (err) {
       console.error(err);
       setError("Login failed. Try again.");
-    }
+    } finally {
+     await new Promise((resolve) => setTimeout(resolve, 900));
+    setLoading(false);
+  }
   };
+
+
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-brand-dark p-4">
@@ -122,11 +138,20 @@ const Login = () => {
 
           {/* BUTTON LOGIN */}
           <button 
-            type="submit"
-            className="w-full bg-gray-300 hover:bg-white text-black font-bold py-3 rounded-sm transition-colors mt-4 cursor-pointer"
-          >
-            Log in
-          </button>
+  type="submit"
+  disabled={loading}
+  className={`w-full bg-gray-300 text-black font-bold py-3 rounded-sm transition-colors mt-4 cursor-pointer
+    ${loading ? "opacity-70 cursor-not-allowed" : "hover:bg-white"}`}
+>
+  {loading ? (
+    <div className="flex items-center justify-center gap-2">
+      <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+      Loading...
+    </div>
+  ) : (
+    "Log in"
+  )}
+</button>
         </form>
 
         <p className="text-center text-gray-500 text-sm mt-6">
