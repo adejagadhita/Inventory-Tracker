@@ -95,7 +95,7 @@ const Sales = () => {
           <thead className="bg-[#0e2a25] text-gray-200 text-sm">
             <tr>
               <th className="px-8 py-5">Date</th>
-              <th className="px-8 py-5">Peroduct</th>
+              <th className="px-8 py-5">Product</th>
               <th className="px-8 py-5 text-center">Sold</th>
             </tr>
           </thead>
