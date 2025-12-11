@@ -97,7 +97,7 @@ const Inventory = () => {
   // UI
   // =====================
   return (
-    <div className="p-4 sm:p-6 md:p-10 min-h-screen">
+    <div className="p-4 sm:p-6  min-h-screen md:ml- transition-all duration-300">
       <h1 className="text-xl sm:text-2xl font-semibold text-brand-text mb-6 sm:mb-8">
         Inventory
       </h1>
@@ -107,7 +107,7 @@ const Inventory = () => {
 
       {/* TABLE */}
       <div className="bg-brand-panel border border-gray-800 rounded-sm overflow-hidden shadow-xl overflow-x-auto">
-        <table className="w-full text-left border-collapse min-w-[500px]">
+        <table className="w-full text-left border-collapse min-w-full">
           <thead className="bg-[#0e2a25] text-brand-text text-xs uppercase tracking-wider border-b border-gray-700">
             <tr>
               <th className="px-4 sm:px-6 py-4 sm:py-5 min-w-[150px] sm:min-w-[200px]">Product Name</th>
