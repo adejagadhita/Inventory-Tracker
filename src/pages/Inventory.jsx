@@ -46,7 +46,7 @@ const Inventory = () => {
   // DELETE PRODUCT
   
   const handleDeleteProduct = async (id) => {
-  if (user.role === "viewer", "guest") {
+  if (user.role === "viewer" || user.role === "guest") {
     alert("Viewer does not have permission to modify data.");
     return;
   }
@@ -78,7 +78,7 @@ const Inventory = () => {
   const handleAddProduct = async (e) => {
     e.preventDefault();
 
-    if (user.role === "viewer","guest") {
+    if (user.role === "viewer" || user.role === "guest" ) {
     alert("Viewer does not have permission to modify data.");
     return;
   }
