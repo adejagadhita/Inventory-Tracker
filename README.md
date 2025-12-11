@@ -1,16 +1,73 @@
-# React + Vite
+# Project Description
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Inventroy Tracker adalah aplikasi manajemen inventaris yang memungkinkan pengguna untuk mencatat, menghapus, serta memonitor stok barang secara real-time.
+	Aplikasi ini dibuat untuk memenuhi kebutuhan pengelola stok sederhana namun efisien, dengan antarmuka yang mudah digunakan dan system autentikasi berbasi role (Admin, Staff, Viewer).
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Fitur utama:
 
-## React Compiler
+- Login dengan role (Admin/Staff/Viewer)
+- CRUD Inventory
+- Dashboard ringkas
+- Manjemen Pengguna (khusus Admin)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Frontend:
+- React.js
+- React Router Dom
+- State Manager: useState, useEffect
+-	UI Framework: Tailwin CSS + Lucide Icons
+-	Firebase : Firestore Database, Firebase Storage
+
+## How to Run
+
+1.Clone repository:
+
+  - git clone https://github.com/your-repo/inventory-tracker.git
+  
+  - cd inventory-tracker
+
+2.Install dependencies:
+
+  - npm install
+
+3.Setup Firebase
+  - Buat file: src/firebase.js
+  - Isi dengan konfigurasi Firebase kamu:
+    import { initializeApp } from "firebase/app";
+    
+    import { getFirestore } from "firebase/firestore";
+    
+    import { getStorage } from "firebase/storage";
+
+    const firebaseConfig = {
+    
+    apiKey: "YOUR_API_KEY",
+    
+    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+    
+    projectId: "YOUR_PROJECT_ID",
+    
+    storageBucket: "YOUR_PROJECT_ID.appspot.com",
+    
+    messagingSenderId: "ID",
+    
+    appId: "APP_ID",
+    };
+
+    const app = initializeApp(firebaseConfig);
+
+    export const db = getFirestore(app);
+    
+    export const storage = getStorage(app);
+
+4.Jalankan aplikasi: npm run dev
+
+5.Aplikasi akan berjalan di: http://localhost:5173
+
+## Demo Screenshots
+
+
+
