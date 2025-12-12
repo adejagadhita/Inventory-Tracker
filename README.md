@@ -31,9 +31,8 @@ Frontend:
   - cd inventory-tracker
 
 2.Install dependencies:
-
   - npm install
-
+ 
 3.Setup Firebase
   - Buat file: src/firebase.js
   - Isi dengan konfigurasi Firebase kamu:
