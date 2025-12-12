@@ -10,8 +10,6 @@ import {
 } from "firebase/firestore";
 
 
-
-
 export async function getInventory() {
   const snapshot = await getDocs(collection(db, "inventory"));
 

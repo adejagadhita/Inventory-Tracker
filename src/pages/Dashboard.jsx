@@ -34,7 +34,7 @@ const Dashboard = () => {
     setStats(data);
 
    };
-
+   
    load();
   },[]);
 
