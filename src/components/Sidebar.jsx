@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { LayoutDashboard, ClipboardList, ShoppingBag, Users, LogOut, Menu, X } from 'lucide-react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import Logo from '../assets/Screenshot_2025-12-02_143819-removebg-preview copy.png'
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -52,7 +53,7 @@ const Sidebar = () => {
       >
         {/* Logo Area */}
         <div onClick={() => navigate("/")} className="p-8 pb-10 flex justify-center md:justify-start">
-          <img src="/logo.svg" alt="logo" className="h-10 w-auto" />
+          <img src={Logo} alt="logo" className="h-10 w-auto" />
         </div>
 
         {/* Navigation */}
