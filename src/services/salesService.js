@@ -33,7 +33,7 @@ export async function createSale(productId, sold, date) {
   //  simpan sales
   await addDoc(collection(db, "sales"), {
     productId,
-    productName: productData.name, //  INI PENTING
+    productName: productData.name, 
     sold,
     date: Timestamp.fromDate(new Date(date)),
     createdAt: Timestamp.now()
