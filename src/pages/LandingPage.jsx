@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { CheckCircle2, MapPin, Phone, Mail } from 'lucide-react';
+import Logo from '../assets/Screenshot_2025-12-02_143819-removebg-preview copy.png'
 
 const LandingPage = () => {
   return (
@@ -10,7 +11,7 @@ const LandingPage = () => {
       <nav className="bg-brand-dark fixed top-0 left-0 right-0 flex items-center justify-between px-4 md:px-6 py-4 max-w-7xl mx-auto z-50">
         <div className="flex items-center">
           <div className="w-10 h-10 flex items-center justify-center rounded-sm">
-            <img className="w-full h-full" src="/logo.svg" alt="logo" />
+            <img className="w-full h-full" src={Logo} alt="logo" />
           </div>
         </div>
 
@@ -43,7 +44,7 @@ const LandingPage = () => {
         <div id="Hero" className="scroll-mt-24 flex flex-col md:flex-row items-center gap-8 md:gap-12">
           <div className="bg-[#0f1b1d] p-2 rounded-lg shadow-2xl border border-gray-800 flex flex-col items-center justify-center w-48 h-48 md:w-64 md:h-64 shrink-0">
             <div className="w-full h-full flex items-center justify-center rounded-sm mb-4">
-              <img className="w-full h-full" src="/logo.svg" alt="logo" />
+              <img className="w-full h-full" src={Logo} alt="logo" />
             </div>
           </div>
 
@@ -114,7 +115,7 @@ const LandingPage = () => {
           
           <div className="flex flex-col items-center mb-8 md:mb-10">
             <div className="w-14 h-14 md:w-16 md:h-16 mb-2 flex items-center justify-center">
-               <img className="w-full h-full object-contain" src="/logo.svg" alt="Inventory Logo" />
+               <img className="w-full h-full object-contain" src={Logo} alt="Inventory Logo" />
             </div>
             <h3 className="text-lg font-bold tracking-widest uppercase">Inventory</h3>
           </div>
